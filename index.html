@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Marker Clusters</title>
+    <title>Crime Map</title>
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -17,6 +17,7 @@
     <!-- D3 library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
+ 
     <!-- Leaflet heatmap plugin-->
        <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
 
@@ -28,9 +29,19 @@
   <body>
 
     <div id="map"></div>
+    <h3>Temperature Range</h3>
+    <p>Min: <span id="minValue"> -30</span>°F</p>
+    <input type="range" min="-30" max="100" value="-30" class="slider" id="minSlider">
+    <p>Max: <span id="maxValue">100</span>°F</p>
+    <input type="range" min="-30" max="100" value="100" class="slider" id="maxSlider">
+    <br></br>
+
+
 
     <!-- Our JavaScript -->
     <script type="text/javascript" src="static/js/logic.js"></script>
 
+
+  
   </body>
 </html>
