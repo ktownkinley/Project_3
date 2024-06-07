@@ -7,6 +7,7 @@ fetch('Crime_Incidents_in_2023.geojson')
 .then(response => response.json())
 .then(function(crimeData){
 
+    console.log(crimeData)
 
     // Define bounds for map
     let washingtonDCBounds = L.latLngBounds(
@@ -22,32 +23,29 @@ fetch('Crime_Incidents_in_2023.geojson')
         zoom: 11.5
     });
 
+
+      // Adding the tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(myMap);
+
+
+        var heat = null
     // function to convert crime data to a heat map
     function createMap(tempData) {
-
-        // Adding the tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(myMap);
         
-        let heat = L.heatLayer(tempData, {
+        heat = L.heatLayer(tempData, {
             radius: 20, 
             blur: 15, 
             maxZoom: 17,
             gradient: {0.0: '#0d0887', 0.25: '#5e02a8', 0.5: '#9d02b8', 0.75: '#cd376a', 1.0: '#fde725'}
         }).addTo(myMap); 
-        
 
     };
         // initialize map at loading screen
         createMap(weatherData)
 
     // function to clear data
-    function clearMap(myMap) {
-        myMap.eachLayer(function(layer) {
-            myMap.removeLayer(layer);
-        })
-    };
 
     function findCrimes(numRange) {
 
@@ -57,8 +55,18 @@ fetch('Crime_Incidents_in_2023.geojson')
         let afternoonCrimes = features.slice(1000,2000)
         let eveningCrimes = features.slice(2000,3000);
         let nightCrimes = features.slice(3000,4000)
+
         let crimesList = [morningCrimes, afternoonCrimes, eveningCrimes, nightCrimes]
 
+
+        // create a dictionary for weather temperature by Date
+        let weatherDict = {};
+
+        weatherData.forEach(entry =>{
+        let date = entry.date;
+            let temperature = entry.temperature;
+            weatherDict[date] = temperature
+        });
 
         let tempData = [];
         let loopCount = 0;
@@ -69,8 +77,8 @@ fetch('Crime_Incidents_in_2023.geojson')
                 loopCount += 1;
 
                 // loop through each crime in that region
-                for (let i = 0; i< crimeZone.length; i++){
-                    let feature = crimeZone[i];
+                for (let j = 0; j< crimeZone.length; j++){
+                    let feature = crimeZone[j];
                     let startDate = feature.properties.START_DATE
 
                     // Make sure there is a start Date
@@ -85,22 +93,23 @@ fetch('Crime_Incidents_in_2023.geojson')
                             let lon = feature.geometry.coordinates[0];
 
                             if (loopCount == 1){
-                                let morningTemp = weatherData[datePart].temperature.morning;
+                                let morningTemp = weatherDict[datePart].morning;
+                                    console.log()
                                     if (morningTemp >= numRange[0] && morningTemp <= numRange[1])
                                         {tempData.push([lat,lon])}
                                 }
                             else if (loopCount == 2){
-                                let afternoonTemp = weatherData[datePart].temperature.afternoon;
+                                let afternoonTemp = weatherDict[datePart].afternoon;
                                     if (afternoonTemp >= numRange[0] && afternoonTemp <= numRange[1])
                                         {tempData.push([lat,lon])}
                                 }      
                             else if (loopCount == 3){
-                                let eveningTemp = weatherData[datePart].temperature.evening;
+                                let eveningTemp = weatherDict[datePart].evening;
                                     if (eveningTemp >= numRange[0] && eveningTemp <= numRange[1])
                                         {tempData.push([lat,lon])}
                                 }     
                             else if  (loopCount == 4){
-                                let nightTemp = weatherData[datePart].temperature.night;
+                                let nightTemp = weatherDict[datePart].night;
                                     if (nightTemp >= numRange[0] && nightTemp <= numRange[1])
                                         {tempData.push([lat,lon])}
                                 }       
@@ -110,9 +119,14 @@ fetch('Crime_Incidents_in_2023.geojson')
 
                 };
                 
-            createMap(tempData)   
+            let heatParam = createMap(tempData)
+            console.log(tempData)  
+            
+            return heatParam
 
             }; 
+
+
 
         let minSlider = d3.select('#minSlider');
         let minValue = d3.select('#minValue');
@@ -131,7 +145,7 @@ fetch('Crime_Incidents_in_2023.geojson')
             }
             minValue.text(minVal);
             let numRange = [minVal, maxVal];
-            clearMap(myMap)
+            heat.remove()
             findCrimes(numRange);
         
         });
@@ -145,7 +159,7 @@ fetch('Crime_Incidents_in_2023.geojson')
             }
             maxValue.text(maxVal);
             let numRange = [minVal, maxVal];
-            clearMap(myMap)
+            heat.remove()
             findCrimes(numRange);
         
         
