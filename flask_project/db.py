@@ -9,7 +9,7 @@ Look out for TODO markers for additional help. Good luck!
 """
 import bson
 from bson import json_util, ObjectId
-import json
+from mongo_cred import uri
 from flask import current_app, g, Flask
 from werkzeug.local import LocalProxy
 from flask_pymongo import PyMongo
@@ -19,15 +19,12 @@ from bson.errors import InvalidId
 
 
 # Use LocalProxy to read the global db instance with just `db`
-
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/weatherdb"
+app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
-print(mongo.db.weather)
+db = mongo.db
 
-
-
-def get_movies_by_country(countries):
+def get_crimes(countries):
     """
     Finds and returns movies by country.
     Returns a list of dictionaries, each dictionary contains a title and an _id.
@@ -48,7 +45,7 @@ def get_movies_by_country(countries):
         # and _id. Do not include a limit in your own implementation, it is
         # included here to avoid sending 46000 documents down the wire.
         print(f" c: {countries}")
-        return list(db.movies.find({},{"country" : 1}))
+        return list(db.crimes.find({},{"country" : 1}))
 
     except Exception as e:
         return e
