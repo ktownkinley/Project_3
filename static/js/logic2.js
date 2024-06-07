@@ -23,14 +23,15 @@ let loopCount = 0;
 let numRange = [30,45]
 
 let weatherDict = {};
-
 weatherData.forEach(entry =>{
 
    let date = entry.date;
-    let temperature = entry.temperature;
+    temperature = entry.temperature
     weatherDict[date] = temperature
+
 })
-  console.log(weatherDict)
+
+
 
 // loop through each time region of crimes
 for (let i = 0; i < crimesList.length; i++){
@@ -78,8 +79,6 @@ for (let i = 0; i < crimesList.length; i++){
             };
 
         };
-        
-    console.log(tempData)  
 
 
 });
