@@ -1,25 +1,40 @@
-console.log("charts.js is loaded")
 
-function buildBarChart(WEATHERDATA, CRIMEDATA) {
-    console.log(WEATHERDATA);
-    console.log(CRIMEDATA);
+function buildBarChart(chartData) {
+  
+    let groupedCrimes = chartData.reduce((acc, str) => {
+        if (!acc[str]) {
+          acc[str] = 0;
+        }
+        acc[str]++;
+        return acc;
+      }, {});
+
+    let labels = Object.keys(groupedCrimes);
+    let counts = Object.values(groupedCrimes);
+
+    let index = labels.indexOf("ASSAULT W/DANGEROUS WEAPON");
+        if (index !== -1) {
+        labels[index] = "ASSAULT";
+        }
+
     var trace1 = {
-        x: ['giraffes', 'orangutans', 'monkeys'],
-        y: [20, 14, 23],
-        name: 'SF Zoo',
+        x: labels,
+        y: counts,
+        name: 'Crime Types',
         type: 'bar'
     };
     
-    var trace2 = {
-        x: ['giraffes', 'orangutans', 'monkeys'],
-        y: [12, 18, 29],
-        name: 'LA Zoo',
-        type: 'bar'
-    };
+    var data = [trace1];
     
-    var data = [trace1, trace2];
-    
-    var layout = {barmode: 'stack'};
+    var layout = {
+        title: 'Amount of Crimes by Type',
+        xaxis: {
+            automargin: true,
+        },
+        yaxis: {
+          title: 'Number of Crimes'
+        }
+      };
     
     Plotly.newPlot('myDiv', data, layout);
 }
