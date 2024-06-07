@@ -23,13 +23,13 @@ fetch('Crime_Incidents_in_2023.geojson')
 
     var weatherDict = {};
 
+    // create a dictionary for weather temperature by date
     weatherData.forEach(entry =>{
     let date = entry.date;
         let temperature = entry.temperature;
         weatherDict[date] = temperature
     });
 
-    
 
     // Define bounds for map
     let washingtonDCBounds = L.latLngBounds(
@@ -53,7 +53,7 @@ fetch('Crime_Incidents_in_2023.geojson')
 
 
 
-        var heat = null
+       var heat = null
     // function to convert crime data to a heat map
     function createMap(tempData) {
         
@@ -65,77 +65,71 @@ fetch('Crime_Incidents_in_2023.geojson')
         }).addTo(myMap); 
 
     };
-  
-         // initialize map at loading screen
-         createMap(weatherData)
-        function findCrimes(numRange) {
+    
+    // function to find all crimes in that temperature range
+    function findCrimes(numRange) {
 
-            // create a dictionary for weather temperature by date
-            let weatherDict = {};
+        let tempData = [];
+        let loopCount = 0;
 
-            weatherData.forEach(entry =>{
-            let date = entry.date;
-                let temperature = entry.temperature;
-                weatherDict[date] = temperature
-            });
-        
-            let tempData = [];
-            let loopCount = 0;
+        // loop through each time region of crimes
+        for (let i = 0; i < crimesList.length; i++){
+                crimeZone = crimesList[i]
+                loopCount += 1;
 
-            // loop through each time region of crimes
-            for (let i = 0; i < crimesList.length; i++){
-                    crimeZone = crimesList[i]
-                    loopCount += 1;
+            // loop through each crime in that region
+            for (let j = 0; j< crimeZone.length; j++){
+                let feature = crimeZone[j];
+                let startDate = feature.properties.START_DATE
 
-                // loop through each crime in that region
-                for (let j = 0; j< crimeZone.length; j++){
-                    let feature = crimeZone[j];
-                    let startDate = feature.properties.START_DATE
+                // Make sure there is a start Date
+                if (startDate){
+                    let datePart = startDate.split('T')[0];
+                    let year = datePart.split('-')[0];
 
-                    // Make sure there is a start Date
-                    if (startDate){
-                        let datePart = startDate.split('T')[0];
-                        let year = datePart.split('-')[0];
+                    // Make sure crime started in 2023, check the temperature for when the crime occured
+                    // if crime temp is in selected temperature range for the correct time range push it to tempData
+                    if(year >= 2023 && year < 2024){
+                        let lat = feature.geometry.coordinates[1];
+                        let lon = feature.geometry.coordinates[0];
 
-                        // Make sure crime started in 2023, check the temperature for when the crime occured
-                        // if crime temp is in selected temperature range for the correct time range push it to tempData
-                        if(year >= 2023 && year < 2024){
-                            let lat = feature.geometry.coordinates[1];
-                            let lon = feature.geometry.coordinates[0];
+                        if (loopCount == 1){
+                            let morningTemp = weatherDict[datePart].morning;
 
-                            if (loopCount == 1){
-                                let morningTemp = weatherDict[datePart].morning;
-
-                                    if (morningTemp >= numRange[0] && morningTemp <= numRange[1])
-                                        {tempData.push([lat,lon])}
-                                }
-                            else if (loopCount == 2){
-                                let afternoonTemp = weatherDict[datePart].afternoon;
-                                    if (afternoonTemp >= numRange[0] && afternoonTemp <= numRange[1])
-                                        {tempData.push([lat,lon])}
-                                }      
-                            else if (loopCount == 3){
-                                let eveningTemp = weatherDict[datePart].evening;
-                                    if (eveningTemp >= numRange[0] && eveningTemp <= numRange[1])
-                                        {tempData.push([lat,lon])}
-                                }     
-                            else if  (loopCount == 4){
-                                let nightTemp = weatherDict[datePart].night;
-                                    if (nightTemp >= numRange[0] && nightTemp <= numRange[1])
-                                        {tempData.push([lat,lon])}
-                                }       
-                            };
+                                if (morningTemp >= numRange[0] && morningTemp <= numRange[1])
+                                    {tempData.push([lat,lon])}
+                            }
+                        else if (loopCount == 2){
+                            let afternoonTemp = weatherDict[datePart].afternoon;
+                                if (afternoonTemp >= numRange[0] && afternoonTemp <= numRange[1])
+                                    {tempData.push([lat,lon])}
+                            }      
+                        else if (loopCount == 3){
+                            let eveningTemp = weatherDict[datePart].evening;
+                                if (eveningTemp >= numRange[0] && eveningTemp <= numRange[1])
+                                    {tempData.push([lat,lon])}
+                            }     
+                        else if  (loopCount == 4){
+                            let nightTemp = weatherDict[datePart].night;
+                                if (nightTemp >= numRange[0] && nightTemp <= numRange[1])
+                                    {tempData.push([lat,lon])}
+                            }       
                         };
                     };
-
                 };
-                
-            createMap(tempData)
 
-            }; 
+            };
+            
+        createMap(tempData)
+
+        }; 
 
 
+        
+        // initialize map at loading screen 
+        findCrimes([15,100]);
 
+        // select the slider parts
         let minSlider = d3.select('#minSlider');
         let minValue = d3.select('#minValue');
         let maxSlider = d3.select('#maxSlider');
