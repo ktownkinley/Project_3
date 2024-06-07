@@ -1,16 +1,15 @@
-let CRIMEDATA
-let WEATHERDATA
 
 // fetch data
 fetch('weather_data.json')
     .then(response => response.json())
     .then(function (weatherData) {
-    WEATHERDATA = weatherData
+
 
         fetch('Crime_Incidents_in_2023.geojson')
             .then(response => response.json())
             .then(function (crimeData) {
-            CRIMEDATA = crimeData
+
+                console.log(crimeData)
 
                 let features = crimeData.features
 
@@ -60,9 +59,9 @@ fetch('weather_data.json')
 
                 var heat = null
                 // function to convert crime data to a heat map
-                function createMap(tempData) {
+                function createMap(mapData) {
 
-                    heat = L.heatLayer(tempData, {
+                    heat = L.heatLayer(mapData, {
                         radius: 12,
                         blur: 15,
                         maxZoom: 17,
@@ -74,7 +73,8 @@ fetch('weather_data.json')
                 // function to find all crimes in that temperature range
                 function findCrimes(numRange) {
 
-                    let tempData = [];
+                    let mapData = [];
+                    chartData = [];
                     let loopCount = 0;
 
                     // loop through each time region of crimes
@@ -93,27 +93,33 @@ fetch('weather_data.json')
                                 let year = datePart.split('-')[0];
 
                                 // Make sure crime started in 2023, check the temperature for when the crime occured
-                                // if crime temp is in selected temperature range for the correct time range push it to tempData
+                                // if crime temp is in selected temperature range for the correct time range push it to mapData and chartData
                                 if (year >= 2023 && year < 2024) {
                                     let lat = feature.geometry.coordinates[1];
                                     let lon = feature.geometry.coordinates[0];
+                                    let offense = feature.properties.OFFENSE
+
 
                                     if (loopCount == 1) {
                                         let morningTemp = weatherDict[datePart].morning;
 
-                                        if (morningTemp >= numRange[0] && morningTemp <= numRange[1]) { tempData.push([lat, lon]) }
+                                        if (morningTemp >= numRange[0] && morningTemp <= numRange[1]) 
+                                            {mapData.push([lat, lon]); chartData.push(offense)}
                                     }
                                     else if (loopCount == 2) {
                                         let afternoonTemp = weatherDict[datePart].afternoon;
-                                        if (afternoonTemp >= numRange[0] && afternoonTemp <= numRange[1]) { tempData.push([lat, lon]) }
+                                        if (afternoonTemp >= numRange[0] && afternoonTemp <= numRange[1]) 
+                                            {mapData.push([lat, lon]); chartData.push(offense)}
                                     }
                                     else if (loopCount == 3) {
                                         let eveningTemp = weatherDict[datePart].evening;
-                                        if (eveningTemp >= numRange[0] && eveningTemp <= numRange[1]) { tempData.push([lat, lon]) }
+                                        if (eveningTemp >= numRange[0] && eveningTemp <= numRange[1]) 
+                                            {mapData.push([lat, lon]); chartData.push(offense)}
                                     }
                                     else if (loopCount == 4) {
                                         let nightTemp = weatherDict[datePart].night;
-                                        if (nightTemp >= numRange[0] && nightTemp <= numRange[1]) { tempData.push([lat, lon]) }
+                                        if (nightTemp >= numRange[0] && nightTemp <= numRange[1]) 
+                                            {mapData.push([lat, lon]); chartData.push(offense)}
                                     }
                                 };
                             };
@@ -121,10 +127,23 @@ fetch('weather_data.json')
 
                     };
 
-                    createMap(tempData)
+                    createMap(mapData)
+                    findPercentage(mapData)
+                    buildBarChart(chartData)
 
                 };
 
+                // function to display overall percentage of crimes
+                function findPercentage(mapData){
+
+                    let percentValue = d3.select('#percentValue')
+                    let maxCrimes = 33973;
+                    let crimes = mapData.length
+                    let percent = (crimes/maxCrimes * 100)
+                    let roundPercent = `${percent.toFixed(2)}%`
+                    percentValue.text(roundPercent)
+        
+                };
 
 
                 // initialize map at loading screen 
@@ -168,10 +187,7 @@ fetch('weather_data.json')
 
                 });
 
-                buildBarChart(WEATHERDATA, CRIMEDATA)
-
             });
 
     });
-
 

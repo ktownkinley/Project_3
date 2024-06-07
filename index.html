@@ -35,18 +35,31 @@
     <div class="row">
       <div class="col-8">
         <div id="map"></div>
-        <h3>Temperature Range</h3>
-        <p>Min: <span id="minValue"> 15</span>°F</p>
-        <input type="range" min="15" max="100" value="15" class="slider" id="minSlider">
-        <p>Max: <span id="maxValue">100</span>°F</p>
-        <input type="range" min="15" max="100" value="100" class="slider" id="maxSlider">
-        <br></br>
+        <div class="row">
+          <div class="col-6">
+            <div id="slider-container">
+              <h3>Temperature Range</h3>
+              <p>Min: <span id="minValue"> 15</span>°F</p>
+              <input type="range" min="15" max="96" value="15" class="slider" id="minSlider">
+              <p>Max: <span id="maxValue">96</span>°F</p>
+              <input type="range" min="15" max="96" value="96" class="slider" id="maxSlider">
+            </div>
+          </div>
+          <div class="col-6">
+            <div id = "percentage-container" >
+              <h3 style="font-size: 23px;"> Percentage of Crimes Occuring</h3>
+              <h3 id = "percentValue" style="font-size: 26px;"> 100.00% </h3>
+            </div>
+          </div>
+        </div>
+        <br>
       </div>
       <div class="col-4">
         <div id="myDiv"></div>
       </div>
     </div>
   </div>
+
 
 
 

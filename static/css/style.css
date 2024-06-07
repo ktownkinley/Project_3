@@ -14,10 +14,6 @@ body {
   height: 90%;
 }
 
-.slider-container {
-  text-align: center;
-  margin-top: 20px;
-}
 
 input[type="range"] {
   -webkit-appearance: none;
@@ -39,7 +35,12 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 100%;
 }
 
-#sliderValue {
-  margin-top: 10px;
-  font-size: 20px;
+
+#percentage-container{
+  text-align: center;
+  margin-top: 75px;
+}
+
+#slider-container{
+  text-align: left;
 }
