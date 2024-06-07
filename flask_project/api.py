@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from bson import json_util, ObjectId
 import json
-from db import get_weather, get_movie, get_movies, get_movies_by_country, \
+from db import get_weather, get_movie, get_movies, get_crimes, \
     get_movies_faceted, add_comment, update_comment, delete_comment
 
 from flask_cors import CORS
@@ -12,8 +12,8 @@ from datetime import datetime
 weather_api_v1 = Blueprint(
     'weather_api_v1',  'weather_api_v1', url_prefix='/api/v1/weather')
 
-movies_api_v1 = Blueprint(
-    'movies_api_v1',  'movies_api_v1',  url_prefix='/api/v1/movies' )
+crime_api_v1 = Blueprint(
+    'crime_api_v1',  'crime_api_v1',  url_prefix='/api/v1/crime' )
 
 
 @weather_api_v1.route('/one', methods=['GET'])
@@ -35,8 +35,8 @@ def api_search_weather():
     return page_sanitized
 
 
-@movies_api_v1.route('/search', methods=['GET'])
-def api_search_movies():
+@crime_api_v1.route('/search', methods=['GET'])
+def api_search_crime():
     DEFAULT_MOVIES_PER_PAGE = 20
 
     # first determine the page of the movies to collect
@@ -77,7 +77,7 @@ def api_search_movies():
     return jsonify(response), 200
 
 
-@movies_api_v1.route('/id/<id>', methods=['GET'])
+@crime_api_v1.route('/id/<id>', methods=['GET'])
 def api_get_movie_by_id(id):
     movie = get_movie(id)
     if movie is None:
@@ -98,7 +98,7 @@ def api_get_movie_by_id(id):
         ), 200
 
 
-@movies_api_v1.route('/countries', methods=['GET'])
+@crime_api_v1.route('/all', methods=['GET'])
 def api_get_movies_by_country():
     try:
         countries = request.args.getlist('countries')
@@ -114,7 +114,7 @@ def api_get_movies_by_country():
         return jsonify(response_object), 400
 
 
-@movies_api_v1.route('/facet-search', methods=['GET'])
+@crime_api_v1.route('/facet-search', methods=['GET'])
 def api_search_movies_faceted():
     MOVIES_PER_PAGE = 20
 
@@ -157,7 +157,7 @@ def api_search_movies_faceted():
         return jsonify({'error': str(e)}), 400
 
 
-@movies_api_v1.route('/comment', methods=["POST"])
+@crime_api_v1.route('/comment', methods=["POST"])
 #@jwt_required
 def api_post_comment():
     """
@@ -176,7 +176,7 @@ def api_post_comment():
         return jsonify({'error': str(e)}), 400
 
 
-@movies_api_v1.route('/comment', methods=["PUT"])
+@crime_api_v1.route('/comment', methods=["PUT"])
 #@jwt_required
 def api_update_comment():
     """
@@ -202,7 +202,7 @@ def api_update_comment():
         return jsonify({'error': str(e)}), 400
 
 
-@movies_api_v1.route('/comment', methods=["DELETE"])
+@crime_api_v1.route('/comment', methods=["DELETE"])
 #@jwt_required
 def api_delete_comment():
     """
