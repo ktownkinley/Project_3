@@ -24,7 +24,7 @@ app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
 db = mongo.db
 
-def get_crimes(countries):
+def get_crime():
     """
     Finds and returns movies by country.
     Returns a list of dictionaries, each dictionary contains a title and an _id.
@@ -44,8 +44,7 @@ def get_crimes(countries):
         # Find movies matching the "countries" list, but only return the title
         # and _id. Do not include a limit in your own implementation, it is
         # included here to avoid sending 46000 documents down the wire.
-        print(f" c: {countries}")
-        return list(db.crimes.find({},{"country" : 1}))
+        return list(db.crimes.find())
 
     except Exception as e:
         return e
@@ -123,37 +122,45 @@ def build_query_sort_project(filters):
     filters dictionary.
     """
     query = {}
+    fields = {}
     # The field "tomatoes.viewer.numReviews" only exists in the movies we want
     # to display on the front page of MFlix, because they are famous or
     # aesthetically pleasing. When we sort on it, the movies containing this
     # field will be displayed at the top of the page.
-    sort = [("tomatoes.viewer.numReviews", -1)]
+    # sort = [("tomatoes.viewer.numReviews", -1)]
     project = None
+    # if filters:
+    #     if "text" in filters:
+    #         query = {"$text": {"$search": filters["text"]}}
+    #         meta_score = {"$meta": "textScore"}
+    #         sort = [("score", meta_score)]
+    #         project = {"score": meta_score}
+    #     elif "cast" in filters:
+    #         query = {"cast": {"$in": filters["cast"]}}
+    #     elif "genres" in filters:
+
+    #         """
+    #         Ticket: Text and Subfield Search
+
+    #         Given a genre in the "filters" object, construct a query that
+    #         searches MongoDB for movies with that genre.
+    #         """
+
+    #         # TODO: Text and Subfield Search
+    #         # Construct a query that will search for the chosen genre.
+    #         query = {}
     if filters:
-        if "text" in filters:
-            query = {"$text": {"$search": filters["text"]}}
-            meta_score = {"$meta": "textScore"}
-            sort = [("score", meta_score)]
-            project = {"score": meta_score}
-        elif "cast" in filters:
-            query = {"cast": {"$in": filters["cast"]}}
-        elif "genres" in filters:
+        if "fields" in filters:
+            fields["_id"] = 0
+            for x in filters["fields"]:
+                fields[x] = 1
+            
 
-            """
-            Ticket: Text and Subfield Search
-
-            Given a genre in the "filters" object, construct a query that
-            searches MongoDB for movies with that genre.
-            """
-
-            # TODO: Text and Subfield Search
-            # Construct a query that will search for the chosen genre.
-            query = {}
-
-    return query, sort, project
+    return query, fields, project
 
 
-def get_movies(filters, page, movies_per_page):
+def get_crimes(filters#, page, movies_per_page
+               ):
     """
     Returns a cursor to a list of movie documents.
 
@@ -166,22 +173,23 @@ def get_movies(filters, page, movies_per_page):
 
     Returns 2 elements in a tuple: (movies, total_num_movies)
     """
-    query, sort, project = build_query_sort_project(filters)
-    if project:
-        cursor = db.movies.find(query, project).sort(sort)
+    query, fields, project = build_query_sort_project(filters)
+    if fields:
+        cursor = db.crimes.find(query, fields)
     else:
-        cursor = db.movies.find(query).sort(sort)
+        cursor = db.crimes.find(query)
 
-    total_num_movies = 0
-    if page == 0:
-        total_num_movies = db.movies.count_documents(query)
+    total_num_crimes = 0
+    total_num_crimes = db.crimes.count_documents(query)
  
-    movies = cursor.limit(movies_per_page)
+    # crimes = cursor.limit(movies_per_page)
+    crimes = cursor
 
-    return (list(movies), total_num_movies)
+    return (list(crimes), total_num_crimes)
 
 
-def get_weather(filters, page, weather_per_page):
+def get_weather(#filters, page, weather_per_page
+                ):
     """
     Returns a cursor to a list of movie documents.
 
@@ -194,19 +202,23 @@ def get_weather(filters, page, weather_per_page):
 
     Returns 2 elements in a tuple: (movies, total_num_movies)
     """
-    query, sort, project = build_query_sort_project(filters)
-    if project:
-        cursor = mongo.db.weather.find(query, project).sort(sort)
-    else:
-        cursor = mongo.db.weather.find(query).sort(sort)
+    # query, sort, project = build_query_sort_project(filters)
+    # if project:
+    #     cursor = mongo.db.weather.find(query, project).sort(sort)
+    # else:
+    #     cursor = mongo.db.weather.find(query).sort(sort)
 
-    total_num_weather = 0
-    if page == 0:
-        total_num_weather = mongo.db.weather.count_documents(query)
+    cursor = mongo.db.weather.find()
+
+    # total_num_weather = 0
+    # if page == 0:
+    #     total_num_weather = mongo.db.weather.count_documents(query)
  
-    weather = cursor.limit(weather_per_page)
+    #weather = cursor.limit(weather_per_page)
+    weather = cursor
 
-    return (list(weather), total_num_weather)
+    return (list(weather)#, total_num_weather
+            )
 
 def get_movie(id):
     """
