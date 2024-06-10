@@ -22,6 +22,7 @@ function buildBarChart(chartData) {
         y: counts,
         name: 'Crime Types',
         type: 'bar'
+        
     };
     
     var data = [trace1];
