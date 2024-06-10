@@ -34,9 +34,11 @@ def create_app():
     def welcome():
         """List all available api routes."""
         return (
-            f"Available Routes:<br/>"
-            f"/api/v1.0/names<br/>"
-            f"/api/v1.0/passengers"
+            "Available Routes:<br/>"
+            "/api/v1/weather/all<br/>"
+            "/api/v1/crimes/all<br/>"
+            "/api/v1/crimes/filtered<br/>"
+            "/api/v1/crimes/all?\{temp_range\}"
         )
         
     return app
