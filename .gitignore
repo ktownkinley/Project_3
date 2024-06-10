@@ -1,0 +1,6 @@
+# ignore api_key
+key.py
+# ignore mongodb credentials
+mongo_cred.py
+mongo_cred.txt
+sample.ini
