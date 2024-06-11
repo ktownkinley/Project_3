@@ -19,6 +19,10 @@ https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2023/explore
 
 https://openweathermap.org/
 
+-leaflet.js stores all of our code for the heatmap rendering. (c) 2014, Vladimir Agafonkin
+ simpleheat, a tiny JavaScript library for drawing heatmaps with Canvas
+ https://github.com/mourner/simpleheat
+ 
 - These data sets were chosen because they are gathered, filtered, and stored for public use. It's important to note for ethical practices that the crime data has been anonymized to exclude the names of perpetrators and victims. The locations of crimes have also been randomized with a block ID's rather than exact addresses. 
 
 # Results
