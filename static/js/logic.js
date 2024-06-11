@@ -65,7 +65,7 @@ fetch('http://127.0.0.1:5000/api/v1/weather/all')
                         radius: 5,
                         blur: 10,
                         maxZoom: 17,
-                        gradient: { 0.0: '#cccccc', 0.25: '#b2b2b2', 0.5: '#666666', 0.75: '#323232', 1.0: '#000000' }
+                        gradient: { 0.0: '#fff585', 0.25: '#d2ab56', 0.5: '#b56317', 0.75: '#7B1010', 1.0: '#000000' }
                     }).addTo(myMap);
 
                 };
