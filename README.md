@@ -5,9 +5,9 @@ Variations in weather temperature have a measurable impact on crime in Washingto
 # Overview
 We scaled this project appropriately by selecting data from the year 2023, narrowing results to one city, and adjusting our analysis to include only temperature. See the "Expansion" section below to explore how these decisions might change, given more resources.
 
-Our database engineering was handled through MongoDB, Flask, and python
-API calls and analysis were articulated in Javascript files
-Front-end rendering was built with HTML and CSS
+- Our database engineering was handled through MongoDB, Flask, and python
+- API calls and analysis were articulated in Javascript files
+- Front-end rendering was built with HTML and CSS
 
 Open Weather data was gathered from Washington DC for every day of 2023 and seperated based on four segments: morning, afternoon, evening, and night. For seamless joining, we created corresponding bins for the crime data based off the crime report. This study incorporates an element of estimation by examining time ranges rather than specific points, because of the constraints on the number of free API calls available to us. From the binned crime data, the date of the crime was compared to the approprate weather findings and the crime was logged depening on if its corresponding temperature falls within the user selected temperate range. Subsequently, with the given temperature range the crimes were plotted on a density map, graphed by crime type distribution, and the percentage of crime occuring was calculated.   
 
