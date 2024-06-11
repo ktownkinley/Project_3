@@ -46,7 +46,7 @@ fetch('weather_data.json')
                     maxBounds: washingtonDCBounds,
                     maxBoundsViscosity: 5.0,
                     center: [38.91, -77.03],
-                    zoom: 11.5
+                    zoom: 10.5
                 });
 
 
@@ -62,10 +62,10 @@ fetch('weather_data.json')
                 function createMap(mapData) {
 
                     heat = L.heatLayer(mapData, {
-                        radius: 12,
-                        blur: 15,
+                        radius: 5,
+                        blur: 10,
                         maxZoom: 17,
-                        gradient: { 0.0: '#0d0887', 0.25: '#5e02a8', 0.5: '#9d02b8', 0.75: '#cd376a', 1.0: '#fde725' }
+                        gradient: { 0.0: '#cccccc', 0.25: '#b2b2b2', 0.5: '#666666', 0.75: '#323232', 1.0: '#000000' }
                     }).addTo(myMap);
 
                 };
