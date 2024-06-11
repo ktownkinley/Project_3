@@ -1,17 +1,17 @@
 
 // fetch data
-fetch('weather_data.json')
+fetch('http://127.0.0.1:5000/api/v1/weather/all')
     .then(response => response.json())
     .then(function (weatherData) {
+        console.log(weatherData);
 
-
-        fetch('Crime_Incidents_in_2023.geojson')
+        fetch('http://127.0.0.1:5000/api/v1/crime/filtered')
             .then(response => response.json())
             .then(function (crimeData) {
 
                 console.log(crimeData)
-
-                let features = crimeData.features
+                let features = crimeData.crimes
+                weatherData = weatherData.weather
 
                 let regexMorning = /^(\d{4}-\d{2}-\d{2}T)?(0[6-9]|1[0-1]):[0-5]\d:[0-5]\dZ?$/;
                 let regexAfternoon = /^(\d{4}-\d{2}-\d{2}T)?(1[2-7]):[0-5]\d:[0-5]\dZ?$/;

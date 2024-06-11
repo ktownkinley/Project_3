@@ -38,7 +38,6 @@ def create_app():
             "/api/v1/weather/all<br/>"
             "/api/v1/crimes/all<br/>"
             "/api/v1/crimes/filtered<br/>"
-            "/api/v1/crimes/all?\{temp_range\}"
         )
         
     return app
