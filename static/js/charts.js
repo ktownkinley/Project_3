@@ -17,23 +17,37 @@ function buildBarChart(chartData) {
         labels[index] = "ASSAULT";
     }
 
+    // Sort the labels and counts arrays in descending order
+    labels.sort((a, b) => groupedCrimes[b] - groupedCrimes[a]);
+    counts.sort((a, b) => groupedCrimes[b] - groupedCrimes[a]);
+
     var trace1 = {
-        x: labels,
-        y: counts,
+        x: counts,
+        y: labels,
         name: 'Crime Types',
-        type: 'bar'
-        
+        type: 'bar',
+        orientation: 'h',
+        marker: {
+            color: 'rgba(157,167,86,0.8)',
+            width: 1
+        },
     };
 
     var data = [trace1];
 
     var layout = {
-        title: 'Amount of Crimes by Type',
+        title: 'Amount of Crime by Type',
         xaxis: {
-            automargin: true,
+            title: 'Crime Count',
+            tickvals: [0, 2000, 4000, 6000, 8000, 10000, 12000], 
         },
         yaxis: {
-            title: 'Number of Crimes'
+            automargin: true,
+        },
+        font: {
+            family: 'Arial',  // Specify the font family
+            size: 12,         // Specify the font size
+            color: 'black'    // Specify the font color
         }
     };
 
