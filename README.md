@@ -9,7 +9,7 @@ Our database engineering was handled through MongoDB, Flask, and python
 API calls and analysis were articulated in Javascript files
 Front-end rendering was built with HTML and CSS
 
-Open Weather data is collected based on four segments: morning, afternoon, evening, and night. For seamless joining we created corresponding bins for the crime data. This introduces some level of estimation in the study. MORE ABOUT OUR DESIGN/PROCESS HERE/ANY KEY DECISIONS
+Open Weather data was gathered from Washington DC for every day of 2023 and seperated based on four segments: morning, afternoon, evening, and night. For seamless joining, we created corresponding bins for the crime data based off the recorded time the crime started. This study incorporates an element of estimation by examining time ranges rather than specific points, because of the constraints on the number of free API calls available to us. From the binned crime data, the date of the crime was compared to the approprate weather findings and the crime was logged depening on if its corresponding temperature falls within the user selected temperate range. Subsequently, with the given temperature range the crimes were plotted on a heat map, graphed by crime type distribution, and the percentage of crime occuring was calculated.   
 
 # Sources
 https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2023/explore
@@ -17,15 +17,19 @@ https://openweathermap.org/
 
 # Results
 - Theft is the most common crime in Washington DC.
-- The highest crime density interval occured between 66-76F at 21.24%, debunking the movie stereotype that crime happens more often at night.
-- Less than 2% of all crime takes place after temperatures reach 90F.
+- Less than 2% of all crime takes place after temperatures reach 90°F.
+- Less than 2% of all crimes takes place below 32°F.
+- The highest crime density interval occured between 66-76F at 21.24%.
+- This suggest that moderate temperatures lead to the highest amounts of crime.
+- 12.62% of crime happens in the morning, 26.89% in the afternoon, 22.22% in the evening and 38.27% at night.
 
 # Potential Applications
 Climate change forecasts may influence staffing, scheduling, and budget allocation for local first responders.
 Theses findings may inspire an obscure sunscreen commercial.
 
 # Limitations
-- There is a known disparity between actual crime and reported crime. We have not designed our current analysis or adjusted our results to address this gap. 
+- There is a known disparity between actual crime and reported crime. We have not designed our current analysis or adjusted our results to address this gap.
+- The temperature during the crime 
 
 # Expansion
 - States with four seasons likely have a different crime distribution than dessert locations. Looking at national data would improve the integrity of our findings, and may reveal entirely different patterns.
