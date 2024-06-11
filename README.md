@@ -1,4 +1,4 @@
-# Project_3
+# Crime and Weather Conditions: An Interactive Analysis Project 
 # Hypothesis
 Variations in weather temperature have a measurable impact on crime in Washington DC. Specifically, we expect to find a positive correlation between warmer weather conditions and an increase in crime.
 
