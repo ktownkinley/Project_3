@@ -102,7 +102,7 @@ def api_search_crime():
 
 @crime_api_v1.route('/filtered', methods=['GET'])
 def api_get_filtered_crimes():
-    filters = {"fields": ["geometry", "properties.START_DATE", "properties.LATITUDE", "properties.LONGITUDE"]}
+    filters = {"fields": ["geometry", "properties.START_DATE", "properties.LATITUDE", "properties.LONGITUDE", "properties.OFFENSE"]}
     (crimes, total_num_entries) = get_crimes(
         filters#, page, DEFAULT_MOVIES_PER_PAGE
         )
