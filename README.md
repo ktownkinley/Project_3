@@ -29,9 +29,9 @@ Theses findings may inspire an obscure sunscreen commercial.
 
 # Limitations
 - There is a known disparity between actual crime and reported crime. We have not designed our current analysis or adjusted our results to address this gap.
-- The temperature during the crime 
+- The number of free api calls openweather allows limited the specificity of our data, as temperature was not found per crime and instead determined by time range the crime occured. 
 
 # Expansion
-- States with four seasons likely have a different crime distribution than dessert locations. Looking at national data would improve the integrity of our findings, and may reveal entirely different patterns.
+- States with four seasons likely have a different crime distribution than desert locations. Looking at national data would improve the integrity of our findings, and may reveal entirely different patterns.
 - Including weather data with concise timestamps, and adding variables such as humidity and precipitation would bolster the accuracy of these tests.
 - This dataset hints at a distinction between indoor vs. outdoor crime. It may be valuable to compare these findings with information on at-risk populations. For example, indoor crimes may disproportionetly impact children during the winter. 
