@@ -9,13 +9,27 @@ function buildBarChart(chartData) {
         return acc;
     }, {});
 
-    let labels = Object.keys(groupedCrimes);
+//    let labels = Object.keys(groupedCrimes);
     let counts = Object.values(groupedCrimes);
 
-    let index = labels.indexOf("ASSAULT W/DANGEROUS WEAPON");
-    if (index !== -1) {
-        labels[index] = "ASSAULT";
-    }
+    //Adjust labels for readability
+//    let index = labels.indexOf("ASSAULT W/DANGEROUS WEAPON");
+//    if (index !== -1) {
+//        labels[index] = "Assault";
+//    }
+    
+    const labelMapping = {
+        "THEFT F/AUTO": "Car Break-In",
+        "THEFT/OTHER": "Theft",
+        "ROBBERY": "Armed Robbery",
+        "MOTOR VEHICLE THEFT": "Auto Theft",
+        "SEX ABUSE": "Sex Abuse",
+        "ASSAULT W/DANGEROUS WEAPON": "Assault",
+        "HOMICIDE": "Homicide",
+        "BURGLARY": "Burglary"
+    };
+    let labels = Object.keys(groupedCrimes);
+    labels = labels.map(label => labelMapping[label] || label);
 
     // Sort the labels and counts arrays in descending order
     labels.sort((a, b) => groupedCrimes[b] - groupedCrimes[a]);
