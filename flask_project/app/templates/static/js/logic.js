@@ -71,6 +71,8 @@ fetch('http://18.144.10.218:5001/api/v1/weather/all')
 
             };
 
+            //var crimes =  []
+
             // function to find all crimes in that temperature range
             function findCrimes(numRange) {
 
@@ -127,11 +129,13 @@ fetch('http://18.144.10.218:5001/api/v1/weather/all')
                     };
 
                 };
+    
+                //crimes.push(mapData.length)
 
                 createMap(mapData)
                 findPercentage(mapData)
                 buildBarChart(chartData)
-
+        
             };
 
             // function to display overall percentage of crimes
@@ -188,12 +192,20 @@ fetch('http://18.144.10.218:5001/api/v1/weather/all')
 
             });
 
-            // get crime counts for temperature intervals, hard coded results in charts.js crimeCounts
-            /*for (let i = 15; i <= 90; i += 5) {
+            // get crime counts for 5 temperature intervals, results used in charts.js crimeCounts
+               /*for (let i = 15; i <= 90; i += 5) {
                 let start = i;
                 let end = (i === 90) ? 95 : i + 4;
                 findCrimes([start,end])
               }*/
+
+            // get crime counts for 1 temperature intervals, results used in analysis.py crime_counts
+            /*
+            for (let i = 15; i <= 94; i ++) {
+                findCrimes([i,i+1])
+              };*/
+              
+            //console.log(crimes)
         
     
 

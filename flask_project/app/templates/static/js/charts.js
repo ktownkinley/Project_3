@@ -104,3 +104,5 @@ bargap: 0
 };
 
 Plotly.newPlot('myChart', data2, layout2);
+
+
