@@ -17,8 +17,9 @@ p2 { font-family: sans-serif;
 p3 { font-family: sans-serif;
   color: whitesmoke;
   font-kerning: 10px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   margin-left: 35px;
+  margin-right: 35px;
 }
 
 h4 {
@@ -26,6 +27,7 @@ h4 {
   color: whitesmoke;
   margin-top: 35px;
   margin-left: 35px;
+  margin-bottom: 35px;
 }
 
 body {
