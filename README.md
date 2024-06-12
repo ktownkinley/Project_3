@@ -12,7 +12,7 @@ We scaled this project appropriately by selecting data from the year 2023, narro
 Open Weather data was gathered from Washington DC for every day of 2023 and seperated based on four segments: morning, afternoon, evening, and night. For seamless joining, we created corresponding bins for the crime data based on the crime report. This study incorporates an element of estimation by examining time ranges rather than specific points, because of the constraints on the number of free API calls available to us. From the binned crime data, the date of the crime was compared to the approprate weather findings and the crime was logged depening on if its corresponding temperature falls within the user selected temperate range. Subsequently, with the given temperature range the crimes were plotted on a density map, graphed by crime type distribution, and the percentage of crime occuring was calculated.   
 
 # Interactive Display
-In the browser users can adjust the temperature range sliders on the right. The corresponding density map and bar chart for crime will dynamically respond to the new input. Users can also zoom on the map to see how specific areas are impacted. 
+In the browser users can adjust the temperature range sliders on the right. The corresponding density map and bar chart for crime will dynamically respond to the new input. Users can also zoom on the map to see how specific areas are impacted. In the second row users can hover to get more specific data for each chart. 
 
 # Sources
 https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2023/explore
@@ -28,11 +28,11 @@ https://github.com/mongodb-developer/flask-pymongo-example/tree/main/mflix
 - These data sets were chosen because they are gathered, filtered, and stored for public use. It's important to note for ethical practices that the crime data has been anonymized to exclude the names of perpetrators and victims. The locations of crimes have also been randomized with a block ID's rather than exact addresses. 
 
 # Results
-- We ran a Poisson Correlation test to see if there truly is a relationship between cime counts and temperature. Results came back with a p-value of 1.59e+04. 
+- We ran a Pearson R Correlation test to see if there truly is a linear relationship between crime counts and temperature. Results show that our p-value is 0.0012, show there is a statistically significant relationship. While the r-value of 0.355, affirms a moderately positive correlation. Note that the correlation is weaker because of the strong decrease in crime during extreme tempertures. 
 - Theft is the most common crime in Washington DC.
 - Less than 2% of all crime takes place after temperatures reach 90°F, limiting our positive correlation hypothesis.
 - Less than 2% of all crimes takes place below 32°F.
-- The highest crime density interval occured between 66-76F at 21.24%.
+- The highest crime density for a 5 degree interval occured between 70-74F at 9.22%.
 - This suggest that moderate temperatures lead to the highest amounts of crime.
 - 12.62% of crime happens in the morning, 26.89% in the afternoon, 22.22% in the evening and 38.27% at night.
 
