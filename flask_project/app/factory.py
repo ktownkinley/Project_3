@@ -3,11 +3,8 @@ import os
 from flask import Flask, render_template
 from json import JSONEncoder
 from flask_cors import CORS
-##from flask_bcrypt import Bcrypt
-##from flask_jwt_extended import JWTManager
-
 from bson import json_util, ObjectId
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from app.api import crime_api_v1, weather_api_v1
 
