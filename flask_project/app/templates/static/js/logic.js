@@ -199,7 +199,7 @@ fetch('http://18.144.10.218:5001/api/v1/weather/all')
                 findCrimes([start,end])
               }*/
 
-            // get crime counts for 1 temperature intervals, results used in analysis.py crime_counts
+            // get crime counts for 1 temperature intervals, results used in analysis.ipynb crime_counts
             /*
             for (let i = 15; i <= 94; i ++) {
                 findCrimes([i,i+1])
