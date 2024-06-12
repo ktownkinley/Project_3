@@ -28,6 +28,7 @@ https://github.com/mongodb-developer/flask-pymongo-example/tree/main/mflix
 - These data sets were chosen because they are gathered, filtered, and stored for public use. It's important to note for ethical practices that the crime data has been anonymized to exclude the names of perpetrators and victims. The locations of crimes have also been randomized with a block ID's rather than exact addresses. 
 
 # Results
+- We ran a Poisson Correlation test to see if there truly is a relationship between cime counts and temperature. Results came back with a p-value of 1.59e+04. 
 - Theft is the most common crime in Washington DC.
 - Less than 2% of all crime takes place after temperatures reach 90°F, limiting our positive correlation hypothesis.
 - Less than 2% of all crimes takes place below 32°F.
