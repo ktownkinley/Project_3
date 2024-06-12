@@ -13,6 +13,7 @@ fetch('http://127.0.0.1:5000/api/v1/weather/all')
                 let features = crimeData.crimes
                 weatherData = weatherData.weather
 
+                // bin cime data to correlate with weather data segments
                 let regexMorning = /^(\d{4}-\d{2}-\d{2}T)?(0[6-9]|1[0-1]):[0-5]\d:[0-5]\dZ?$/;
                 let regexAfternoon = /^(\d{4}-\d{2}-\d{2}T)?(1[2-7]):[0-5]\d:[0-5]\dZ?$/;
                 let regexEvening = /^(\d{4}-\d{2}-\d{2}T)?(1[8-9]|2[0-1]):[0-5]\d:[0-5]\dZ?$/;
@@ -144,7 +145,6 @@ fetch('http://127.0.0.1:5000/api/v1/weather/all')
                     percentValue.text(roundPercent)
         
                 };
-
 
                 // initialize map at loading screen 
                 findCrimes([15, 100]);
