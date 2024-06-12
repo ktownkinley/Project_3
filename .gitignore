@@ -4,3 +4,5 @@ key.py
 mongo_cred.py
 mongo_cred.txt
 sample.ini
+# ignore __pycache__
+*/__pycache__/*
