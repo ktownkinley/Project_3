@@ -51,6 +51,10 @@ function buildBarChart(chartData) {
         },
         yaxis: {
             automargin: true,
+            // Add a margin on the left side to accommodate longer labels
+            margin: {
+                l: 300 // Adjust this value according to your preference
+            }
         },
         font: {
             family: 'Arial',  // Specify the font family
