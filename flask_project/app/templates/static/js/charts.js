@@ -78,7 +78,7 @@ marker: {
     color: 'rgba(95, 91, 91,0.8)',
     width: 1    
 },
-hovertemplate: 'Temperature: %{customdata} F°<br>Crime Count: %{y}<extra></extra>',
+hovertemplate: 'Temperature: %{customdata}F°<br>Crime Count: %{y}<extra></extra>',
 customdata: tempRanges
 
 };
