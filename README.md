@@ -23,7 +23,7 @@ Open Weather data was gathered from Washington DC for every day of 2023 and sepe
 
 # Interactive Display
 In the browser users can adjust the temperature range sliders on the right. The corresponding density map and bar chart for crime will dynamically respond to the new input. Users can also zoom on the map to see how specific areas are impacted. In the second row users can hover to get more specific data for each chart.
-Currently, the web display is hosted at [http://13.57.33.163:5000/](http://13.57.32.167:5000/)
+Currently, the web display is hosted at (http://13.57.32.167:5000/)
 
 # Sources
 https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2023/explore
@@ -46,9 +46,6 @@ https://github.com/mongodb-developer/flask-pymongo-example/tree/main/mflix
 - The highest crime density for a 5 degree interval occured between 70-74F at 9.22%.
 - This suggest that moderate temperatures lead to the highest amounts of crime.
 - 12.62% of crime happens in the morning, 26.89% in the afternoon, 22.22% in the evening and 38.27% at night.
-
-# Potential Applications
-Climate change forecasts may influence staffing, scheduling, and budget allocation for local first responders.
 
 # Limitations
 - There is a known disparity between actual crime and reported crime. We have not designed our current analysis or adjusted our results to address this gap.
