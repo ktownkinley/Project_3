@@ -5,7 +5,7 @@ h1 { font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: whitesmoke;
   text-align: justify;
   text-underline-position: 2px solid rgb(121, 170, 146);
-  margin-top: 80%;
+  margin-top: 500px;
   display: block; /* Ensure the title is not hidden */
   visibility: visible; /* Ensure it's visible */
   position: relative;
