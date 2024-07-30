@@ -1,3 +1,5 @@
+.DS_Store
+
 # ignore api_key
 key.py
 # ignore mongodb credentials
